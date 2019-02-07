@@ -1,0 +1,19 @@
+---
+title: "Assignment 5 Clinical report"
+author: "Kai Ellis"
+date: "February 7, 2019"
+output: html_document
+---
+#Blood Testing Results:
+
+##Diagnosis:
+Pateint is infected with a strain of bird flu (H5N1). Immidiate treatment recommended, as disease has a high mortality rate (60%).
+More info: [WHO report: H5N1](https://www.who.int/influenza/human_animal_interface/avian_influenza/h5n1_research/faqs/en/)
+
+##Sequencing Results, Protein:
+Protein blasting provided a narrow range of hits, all of which were determined to be strains of H5N1, the top ten hits are shown here.
+![Protein sequenceing results:](Proteinblast.png)
+
+##Sequencing Results, DNA:
+
+

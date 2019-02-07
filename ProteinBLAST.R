@@ -48,18 +48,21 @@ GCTGAGTTGCCATTCACCATTGACAAGTAGTTTGTTCAAAAAACTCCTTGTTTCTACT"
 #use parameter database="nr",program="blastp" to find protein blast with blastSequences()
 
 #we're gonna start by blasting, and seeing what happens
-nchar(ProteinSeq)
 Pblast=blastSequences(ProteinSeq,database = "nr",program = "blastp", as ="data.frame", 
-                      hitListSize = 400, timeout = 100 )
+                      hitListSize = 10, timeout = 100 )
 #Running a genbank check on the first three protein hits to see what comes up
 PhitSeqs=read.GenBank(Pblast$Hit_accession[1:3])
 attr(PhitSeqs,"species") #looks like we're dealing with influenza A (H5N1), but lets do some more analysis with the dna seq
 
 #dna blast functions similarly to protein blast, but we can more easily create phylotrees from it
-DNAblast=blastSequences(DNASeq,as ="data.frame", hitListSize = 40, timeout = 100 )
+DNAblast=blastSequences(DNASeq,as ="data.frame", hitListSize = 50, timeout = 100 )
+?blastSequences
 
 #to make a phylo tree we're first gonna need to align the sequences with muscle, which requires a conversion to DNAbin format
 DNAHitsDF=data.frame(ID=DNAblast$Hit_accession,seq=DNAblast$Hsp_hseq,stringsAsFactors=F)
+
+#Since we only have around 40 hits, it doesnt take tooo long to run get the actual names of the 
+#sequences we've found. Additionally setting these as the ids for our dna bin makes reading the data much easier.
 DNAhitSeqs=read.GenBank(DNAblast$Hit_accession)
 ID=attr(DNAhitSeqs,"species")
 DNAHits=sapply(DNAHitsDF$seq,strsplit,split="")
